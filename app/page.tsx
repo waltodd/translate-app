@@ -27,7 +27,7 @@ const languageOptionsResult = [
   { value: 'es', label: 'Spanish' },
 ];
 export default function Home() {
-  const [inputText, setInputText] = useState('Hello, how are you?');
+  const [inputText, setInputText] = useState<string>('Hello, how are you?');
   const [sourceLang, setSourceLang] = useState<Option>({ value: 'auto', label: 'Detect Language' });
   const [targetLang, setTargetLang] = useState<OptionResult>({ value: 'fr', label: 'French' });
   const [translation, setTranslation] = useState('');
@@ -37,9 +37,10 @@ export default function Home() {
 
 
   const handleDetectLanguage = async () => {
+   
     await detectlanguage.detectCode(inputText).then( async (result) => {
       try {
-        const apiUrl = `https://api.mymemory.translated.net/get?q=${inputText}!&langpair=${result}|${targetLang.value}`;
+        const apiUrl = `https://api.mymemory.translated.net/get?q=${inputText}&langpair=${result}|${targetLang.value}`;
         const response =await fetch(apiUrl);
         const data = await  response.json();
         const { responseData: { translatedText } } = data;
@@ -47,7 +48,13 @@ export default function Home() {
         if(result === targetLang.value){
           setTranslation(inputText)
         }else{
-          setTranslation(translatedText)
+
+          if(inputText == ''){
+            setTranslation('')
+          }else{
+            setTranslation(translatedText)
+          }
+          
         }
       } catch (error) {
         console.log(error)
@@ -65,7 +72,19 @@ export default function Home() {
        
         const response = await fetch(apiUrl);
         const data = await response.json();
-        console.log(data)
+        const { responseData: { translatedText } } = data;
+
+        if(sourceLang.value === targetLang.value){
+          setTranslation(inputText)
+        }else{
+
+          if(inputText == ''){
+            setTranslation('')
+          }else{
+            setTranslation(translatedText)
+          }
+          
+        }
       }
 
 
@@ -112,7 +131,7 @@ export default function Home() {
             </div>
             <div className="card-content">
               <textarea className="textare-input" value={inputText} onChange={(e) => setInputText(e.target.value)} />
-              <p>19/500 </p>
+              <p>{inputText.length}/500 </p>
             </div>
             <div className="card-footer">
               <div className="btn-icon-container">

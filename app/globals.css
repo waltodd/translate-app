@@ -9,6 +9,7 @@
   body {
     font-size: 14px;
     background-color: #040711;
+    overflow: hidden;
   }
 
   .hero-section {
@@ -188,7 +189,7 @@
   body {
     font-size: 16px;
     background-color: #040711;
-
+    overflow: hidden;
   }
 
   .hero-section {
@@ -364,6 +365,7 @@
   body {
     font-size: 18px;
     background-color: #040711;
+    overflow: hidden;
   }
 
   .hero-section {
@@ -541,6 +543,7 @@
   body {
     font-size: 20px;
     background-color: #040711;
+    overflow: hidden;
   }
 
   .hero-section {
