@@ -1,11 +1,19 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from 'react'
 import Image from "next/image";
+import debounce from 'lodash/debounce';
+import detectlanguage from './api/detectLanguage'
 
-interface Props {
+
+interface Option {
   value: string;
   label: string;
 }
+interface OptionResult {
+  value: string;
+  label: string;
+}
+
 const languageOptions = [
   { value: 'auto', label: 'Detect Language' },
   { value: 'en', label: 'English' },
@@ -14,39 +22,77 @@ const languageOptions = [
 ];
 
 const languageOptionsResult = [
-  { value: 'en', label: 'English' },
   { value: 'fr', label: 'French' },
+  { value: 'en', label: 'English' },
   { value: 'es', label: 'Spanish' },
 ];
 export default function Home() {
-  const [inputText, setInputText] = useState('');
-  const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
-  const [translatedText, setTranslatedText] = useState('');
+  const [inputText, setInputText] = useState('Hello, how are you?');
+  const [sourceLang, setSourceLang] = useState<Option>({ value: 'auto', label: 'Detect Language' });
+  const [targetLang, setTargetLang] = useState<OptionResult>({ value: 'fr', label: 'French' });
+  const [translation, setTranslation] = useState('');
   const [active, setActive] = useState(0);
   const [activeResult, setActiveResult] = useState(0);
 
-  const apiKey = 'YOUR_GOOGLE_API_KEY'; // Replace with your API key
 
-  // const handleTranslate = async () => {
-  //   try {
-  //     let targetLanguage = selectedLanguage.value;
-  //     if (targetLanguage === 'auto') {
-  //       targetLanguage = undefined; // Detect language automatically
-  //     }
 
-  //     const result = await translate(inputText, { to: targetLanguage, key: apiKey });
-  //     setTranslatedText(result.text);
-  //   } catch (error) {
-  //     console.error('Translation error:', error);
-  //   }
-  const handleSelectLanguage = (index: number) => {
-    console.log(index)
-    setActive(index)
+  const handleDetectLanguage = async () => {
+    await detectlanguage.detectCode(inputText).then( async (result) => {
+      try {
+        const apiUrl = `https://api.mymemory.translated.net/get?q=${inputText}!&langpair=${result}|${targetLang.value}`;
+        const response =await fetch(apiUrl);
+        const data = await  response.json();
+        const { responseData: { translatedText } } = data;
+
+        if(result === targetLang.value){
+          setTranslation(inputText)
+        }else{
+          setTranslation(translatedText)
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    })
   }
 
-  const handleSelectLanguageResult = (index: number) => {
-    console.log(index)
+  const handleTranslate = async () => {
+    try {
+      
+      if (sourceLang.value == "auto") {
+        handleDetectLanguage()
+      } else {
+        const apiUrl = await `https://api.mymemory.translated.net/get?q=${inputText}!&langpair=${sourceLang.value}|${targetLang.value}`;
+       
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        console.log(data)
+      }
+
+
+    } catch (error) {
+      console.error('Translation error:', error);
+    }
+
+  }
+
+  const debouncedTranslate = debounce(handleTranslate, 500)
+
+  useEffect(() => {
+    //This effect will run whenever inputText or sourceLang or targetLang
+    debouncedTranslate()
+
+    return () => debouncedTranslate.cancel();
+
+  }, [inputText, sourceLang, targetLang])
+
+  const handleSelectLanguage = (index: number, lang: { value: string, label: string }) => {
+    setActive(index)
+    setSourceLang(lang)
+  }
+
+  const handleSelectLanguageResult = (index: number, lang: { value: string, label: string }) => {
     setActiveResult(index)
+    setTargetLang(lang)
   }
   return (
     <main className="hero-section">
@@ -58,15 +104,15 @@ export default function Home() {
           <div className="card">
             <div className="card-header">
               {languageOptions.map((language, index) => (
-                <div onClick={() => handleSelectLanguage(index)}
+                <div onClick={() => handleSelectLanguage(index, language)}
                   className={`btn-language ${active === index ? 'active' : ''}`} key={index}>
                   {language.label}
                 </div>
               ))}
             </div>
             <div className="card-content">
-              <textarea className="textare-input" />
-              <p>19/500</p>
+              <textarea className="textare-input" value={inputText} onChange={(e) => setInputText(e.target.value)} />
+              <p>19/500 </p>
             </div>
             <div className="card-footer">
               <div className="btn-icon-container">
@@ -78,7 +124,7 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <div className="btn-translate">
+                <div className="btn-translate" onClick={() => handleTranslate()}>
                   <Image className="img" src="/assets/Sort_alfa.svg" width={25} height={25} alt="copy" />
                   Translate
                 </div>
@@ -88,21 +134,21 @@ export default function Home() {
           <div className="card">
             <div className="card-header-result">
               <div className="result">
-              {languageOptionsResult.map((language, index) => (
-                <div onClick={() => handleSelectLanguageResult(index)}
-                  className={`btn-language ${activeResult === index ? 'active' : ''}`} key={index}>
-                  {language.label}
-                </div>
-              ))}
+                {languageOptionsResult.map((language, index) => (
+                  <div onClick={() => handleSelectLanguageResult(index, language)}
+                    className={`btn-language ${activeResult === index ? 'active' : ''}`} key={index}>
+                    {language.label}
+                  </div>
+                ))}
               </div>
               <div>
-              <div className="btn-icon">
-                <Image src="/assets/Horizontal_top_left_main.svg" width={25} height={25} alt="sound" />
-              </div>
+                <div className="btn-icon">
+                  <Image src="/assets/Horizontal_top_left_main.svg" width={25} height={25} alt="sound" />
+                </div>
               </div>
             </div>
             <div className="card-content">
-              <textarea className="textare-input" />
+              <textarea className="textare-input" value={translation} onChange={() => setTranslation(translation)} />
             </div>
             <div className="card-footer">
               <div className="btn-icon-container">
