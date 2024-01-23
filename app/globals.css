@@ -90,7 +90,7 @@
   }
 
   .textare-input {
-    width: 100%;
+    width: 95%;
     height: 85%;
     border: none;
     overflow: auto;
@@ -103,7 +103,7 @@
     font-weight: bold;
     font-size: 14px;
     padding: .5rem;
-    background-color: red;
+    background-color: transparent
   }
 
   .card-content p {
