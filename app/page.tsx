@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import Image from "next/image";
 import debounce from 'lodash/debounce';
 import detectlanguage from './api/detectLanguage'
+import toast, { Toaster } from 'react-hot-toast';
+import copy from "copy-to-clipboard";
 
 
 interface Option {
@@ -33,7 +35,7 @@ export default function Home() {
   const [translation, setTranslation] = useState('');
   const [active, setActive] = useState(0);
   const [activeResult, setActiveResult] = useState(0);
-
+  const [copyText, setCopyText] = useState<string>("");
 
 
   const handleDetectLanguage = async () => {
@@ -113,6 +115,12 @@ export default function Home() {
     setActiveResult(index)
     setTargetLang(lang)
   }
+
+  const handleCopyToClipboard =(copyText:string) =>{
+    copy(copyText)
+    toast.success('Copied')
+  }
+  
   return (
     <main className="hero-section">
       <div className="main-container">
@@ -138,8 +146,9 @@ export default function Home() {
                 <div className="btn-icon">
                   <Image src="/assets/sound_max_fill.svg" width={25} height={25} alt="sound" />
                 </div>
-                <div className="btn-icon">
+                <div className="btn-icon" onClick={()=>handleCopyToClipboard(inputText)}>
                   <Image src="/assets/Copy.svg" width={25} height={25} alt="copy" />
+                  <Toaster />
                 </div>
               </div>
               <div>
@@ -174,7 +183,7 @@ export default function Home() {
                 <div className="btn-icon">
                   <Image src="/assets/sound_max_fill.svg" width={25} height={25} alt="sound" />
                 </div>
-                <div className="btn-icon">
+                <div className="btn-icon" onClick={()=>handleCopyToClipboard(translation)}>
                   <Image src="/assets/Copy.svg" width={25} height={25} alt="copy" />
                 </div>
               </div>
