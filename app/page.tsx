@@ -137,7 +137,15 @@ export default function Home() {
       setTranslation(newText)
     }
   }
-  
+  //Switch language
+  const handleSwitchLanguages =() =>{
+    // Swap the sourceLang and targetLang when the switch button is clicked
+    setSourceLang(targetLang);
+    setTargetLang(sourceLang);
+    setActiveResult(active);
+    setActive(activeResult);
+  setTranslation(inputText);
+  }
   return (
     <main className="hero-section">
       <div className="main-container">
@@ -185,7 +193,7 @@ export default function Home() {
                 ))}
               </div>
               <div>
-                <div className="btn-icon">
+                <div className="btn-icon" onClick={handleSwitchLanguages}>
                   <Image src="/assets/Horizontal_top_left_main.svg" width={25} height={25} alt="sound" />
                 </div>
               </div>
