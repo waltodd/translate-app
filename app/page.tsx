@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent } from 'react'
 import Image from "next/image";
 import debounce from 'lodash/debounce';
 import detectlanguage from './api/detectLanguage'
@@ -121,6 +121,22 @@ export default function Home() {
     copy(copyText)
     toast.success('Copied')
   }
+  //Handling input lenght
+  const handleInputChange = (e:ChangeEvent<HTMLTextAreaElement>) =>{
+    const newText = e.target.value;
+
+    if(newText.length <= 500){
+      setInputText(newText)
+    }
+  }
+
+  const handleInputResultChange = (e:ChangeEvent<HTMLTextAreaElement>) =>{
+    
+    const newText = e.target.value;
+    if(newText.length <= 500){
+      setTranslation(newText)
+    }
+  }
   
   return (
     <main className="hero-section">
@@ -139,7 +155,7 @@ export default function Home() {
               ))}
             </div>
             <div className="card-content">
-              <textarea className="textare-input" value={inputText} onChange={(e) => setInputText(e.target.value)} />
+              <textarea className="textare-input" value={inputText} onChange={handleInputChange} />
               <p>{inputText.length}/500 </p>
             </div>
             <div className="card-footer">
@@ -175,7 +191,7 @@ export default function Home() {
               </div>
             </div>
             <div className="card-content">
-              <textarea className="textare-input" value={translation} onChange={() => setTranslation(translation)} />
+              <textarea className="textare-input" value={translation} onChange={handleInputResultChange} />
             </div>
             <div className="card-footer">
               <div className="btn-icon-container">
