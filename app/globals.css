@@ -11,6 +11,7 @@
     background-color: #040711;
     overflow-x: hidden !important;
     box-sizing: border-box;
+    -webkit-overflow-scrolling: touch
   }
 
   .hero-section {
