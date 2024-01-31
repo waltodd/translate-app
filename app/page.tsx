@@ -6,6 +6,7 @@ import detectlanguage from './api/detectLanguage'
 import toast, { Toaster } from 'react-hot-toast';
 import copy from "copy-to-clipboard";
 import { TextToSpeak } from '@/components/TextToSpeak';
+import { ChooseLanguage } from '@/components/ChooseLanguage';
 
 
 interface Option {
@@ -29,6 +30,9 @@ const languageOptionsResult = [
   { value: 'en', label: 'English' },
   { value: 'es', label: 'Spanish' },
 ];
+
+
+
 export default function Home() {
   const [inputText, setInputText] = useState<string>('Hello, how are you?');
   const [sourceLang, setSourceLang] = useState<Option>({ value: 'auto', label: 'Detect Language' });
@@ -36,6 +40,8 @@ export default function Home() {
   const [translation, setTranslation] = useState('');
   const [active, setActive] = useState(0);
   const [activeResult, setActiveResult] = useState(0);
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [allLanguage, setAllLanguage] = useState<any>([])
 
 
 
@@ -63,6 +69,28 @@ export default function Home() {
         console.log(error)
       }
     })
+  }
+  const getAllLanguage= async () =>{
+   try {
+    const options = {
+      method:'GET',
+      headers:{
+        'Ocp-Apim-Subscription-Key':`${process.env.metaApi}`,
+        'Accept': 'application/json' 
+      }
+    }
+    const apiUrl = '/api/getLanguages';
+        const response = await fetch(apiUrl, options);
+        const data = await  response.json();
+        console.log(data.data)
+
+        const languageData = data.data
+        console.log(languageData)
+
+        setAllLanguage(languageData)
+   } catch (error) {
+    console.log(error)
+   }
   }
 
   const handleTranslate = async () => {
@@ -102,6 +130,7 @@ export default function Home() {
   useEffect(() => {
     //This effect will run whenever inputText or sourceLang or targetLang
     debouncedTranslate()
+    getAllLanguage()
 
     return () => debouncedTranslate.cancel();
 
@@ -148,6 +177,11 @@ export default function Home() {
 
   
   }
+
+
+  const handleOpen = () => {
+    setIsOpen(true)
+  }
   return (
     <main className="hero-section">
       <div className="main-container">
@@ -155,6 +189,7 @@ export default function Home() {
           <Image src="/assets/logo.svg" alt="logo" width={200} height={200} />
         </div>
         <div className="card-container">
+         {isOpen &&  <ChooseLanguage setIsOpen={setIsOpen} allLanguage={allLanguage} />}
           <div className="card">
             <div className="card-header">
               {languageOptions.map((language, index) => (
@@ -163,6 +198,9 @@ export default function Home() {
                   {language.label}
                 </div>
               ))}
+              <Image className='arrow-down' src="assets/Expand_down.svg" width={25} height={25} alt='arrow'
+               onClick={handleOpen}
+               />
             </div>
             <div className="card-content">
               <textarea className="textare-input" value={inputText} onChange={handleInputChange} />
@@ -193,6 +231,9 @@ export default function Home() {
                     {language.label}
                   </div>
                 ))}
+                <Image className='arrow-down' src="assets/Expand_down.svg" width={25} height={25} alt='arrow'
+               onClick={handleOpen}
+               />
               </div>
               <div>
                 <div className="btn-icon" onClick={handleSwitchLanguages}>
