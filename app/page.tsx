@@ -144,7 +144,9 @@ export default function Home() {
     setTargetLang(sourceLang);
     setActiveResult(active);
     setActive(activeResult);
-  setTranslation(inputText);
+    setTranslation(inputText);
+
+  
   }
   return (
     <main className="hero-section">
