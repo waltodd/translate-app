@@ -31,7 +31,7 @@
   }
 
   .logo {
-    height: 10rem;
+    height: 5rem;
     display: flex;
     justify-content: center;
   }
@@ -40,6 +40,8 @@
     display: flex;
     justify-content: center;
     width: 10rem;
+    margin-bottom: 1rem;
+    height: 5rem;
   }
 
   .card-container {
@@ -95,7 +97,7 @@
 
   .textare-input {
     width: 95%;
-    height: 70%;
+    height: 90%;
     border: none;
     overflow: auto;
     outline: none;
@@ -170,6 +172,7 @@
     height: 20px;
   }
 
+
   /**************************
   
   RESULT CARD
@@ -187,7 +190,11 @@
     justify-content: center;
     align-items: center;
   }
+/********************************************
 
+MODAL
+
+*************************************************/
 
   .lang-container {
     display: block;
@@ -236,6 +243,7 @@
   .lang-icon {
     width: 20px !important;
     height: 20px !important;
+    cursor: pointer;
   }
 
   .lang-search{
@@ -266,6 +274,12 @@
     padding: .5rem;
     color: #F9FAFB;
     text-transform: capitalize;
+    font-weight: bold;
+  }
+
+  .arrow-down {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -444,6 +458,99 @@
 
   .result {
     display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /**********************************************
+      MODAL LANGUAGES
+
+  *****************************************************/
+  .lang-container {
+    display: block;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 10;
+    /* Sit on top */
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    
+  }
+
+  .lang-modal {
+    padding: 20px;
+    background-color: #212936cc;
+  }
+
+  .lang-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem .5rem;
+    border: 1px solid #4D5562;
+    height: 5vh;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .lang-header >div{
+    display: flex;
+    align-items: center;
+  }
+
+
+  .lang-icon {
+    width: 25px !important;
+    height: 25px !important;
+    cursor: pointer;
+  }
+
+  .lang-search{
+    border: none;
+    background-color: transparent;
+    font-size: 1.1rem;
+    width: 100%;
+    padding: .5rem;
+    color: #F9FAFB;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    font-weight: bold;
+  }
+
+  .lang-content {
+    display: grid;
+    padding: 0rem .5rem;
+    border-bottom: 1px solid #4D5562;
+    border-left: 1px solid #4D5562;
+    border-right: 1px solid #4D5562;
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  .lang-text {
+    font-size: 1.1rem;
+    padding: .5rem;
+    color: #F9FAFB;
+    text-transform: capitalize;
+    font-weight: bold;
+  }
+
+  .arrow-down {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
   }
 }
 
@@ -609,21 +716,95 @@
     display: flex;
     cursor: pointer;
   }
+ /**********************************************
+      MODAL LANGUAGES
 
-  /**************************
-  
-  RESULT CARD
-  *******************************/
-  .card-header-result {
-    display: flex;
-    padding: .5rem;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #4D5562;
+  *****************************************************/
+  .lang-container {
+    display: block;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 10;
+    /* Sit on top */
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    
   }
 
-  .result {
+  .lang-modal {
+    padding: 20px;
+    background-color: #212936cc;
+  }
+
+  .lang-header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem .5rem;
+    border: 1px solid #4D5562;
+    height: 5vh;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .lang-header >div{
+    display: flex;
+    align-items: center;
+  }
+
+
+  .lang-icon {
+    width: 25px !important;
+    height: 25px !important;
+    cursor: pointer;
+  }
+
+  .lang-search{
+    border: none;
+    background-color: transparent;
+    font-size: 1.1rem;
+    width: 100%;
+    padding: .5rem;
+    color: #F9FAFB;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    font-weight: bold;
+  }
+
+  .lang-content {
+    display: grid;
+    padding: 0rem .5rem;
+    border-bottom: 1px solid #4D5562;
+    border-left: 1px solid #4D5562;
+    border-right: 1px solid #4D5562;
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  .lang-text {
+    font-size: 1.1rem;
+    padding: .5rem;
+    color: #F9FAFB;
+    text-transform: capitalize;
+    font-weight: bold;
+  }
+
+  .arrow-down {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
   }
 }
 
@@ -803,5 +984,97 @@
 
   .result {
     display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ /**********************************************
+      MODAL LANGUAGES
+
+  *****************************************************/
+  .lang-container {
+    display: block;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 10;
+    /* Sit on top */
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    
+  }
+
+  .lang-modal {
+    padding: 20px;
+    background-color: #212936cc;
+  }
+
+  .lang-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem .5rem;
+    border: 1px solid #4D5562;
+    height: 5vh;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+  .lang-header >div{
+    display: flex;
+    align-items: center;
+  }
+
+
+  .lang-icon {
+    width: 25px !important;
+    height: 25px !important;
+    cursor: pointer;
+  }
+
+  .lang-search{
+    border: none;
+    background-color: transparent;
+    font-size: 1.1rem;
+    width: 100%;
+    padding: .5rem;
+    color: #F9FAFB;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    font-weight: bold;
+  }
+
+  .lang-content {
+    display: grid;
+    padding: 0rem .5rem;
+    border-bottom: 1px solid #4D5562;
+    border-left: 1px solid #4D5562;
+    border-right: 1px solid #4D5562;
+    grid-template-columns: repeat(5,1fr);
+  }
+
+  .lang-text {
+    font-size: 1.1rem;
+    padding: .5rem;
+    color: #F9FAFB;
+    text-transform: capitalize;
+    font-weight: bold;
+  }
+
+  .arrow-down {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
   }
 }
