@@ -82,10 +82,10 @@ export default function Home() {
     const apiUrl = '/api/getLanguages';
         const response = await fetch(apiUrl, options);
         const data = await  response.json();
-        console.log(data.data)
+        // console.log(data.data)
 
         const languageData = data.data
-        console.log(languageData)
+        // console.log(languageData)
 
         setAllLanguage(languageData)
    } catch (error) {

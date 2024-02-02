@@ -275,6 +275,10 @@ MODAL
     color: #F9FAFB;
     text-transform: capitalize;
     font-weight: bold;
+    cursor: pointer;
+  }
+  .lang-text:hover {
+    color: #4D5562;
   }
 
   .arrow-down {
@@ -545,8 +549,11 @@ MODAL
     color: #F9FAFB;
     text-transform: capitalize;
     font-weight: bold;
+    cursor: pointer;
   }
-
+  .lang-text:hover {
+    color: #4D5562;
+  }
   .arrow-down {
     width: 25px;
     height: 25px;
@@ -799,6 +806,10 @@ MODAL
     color: #F9FAFB;
     text-transform: capitalize;
     font-weight: bold;
+    cursor: pointer;
+  }
+  .lang-text:hover {
+    color: #4D5562;
   }
 
   .arrow-down {
@@ -1070,8 +1081,11 @@ MODAL
     color: #F9FAFB;
     text-transform: capitalize;
     font-weight: bold;
+    cursor: pointer;
   }
-
+  .lang-text:hover {
+    color: #4D5562;
+  }
   .arrow-down {
     width: 25px;
     height: 25px;
