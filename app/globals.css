@@ -112,7 +112,10 @@
     font-size: 14px;
     padding: .5rem;
     background-color: transparent;
-    overflow-x: hidden;
+    -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  max-width: 100%; 
   }
   .textare-input:focus {
     position: fixed;
@@ -265,6 +268,11 @@ MODAL
     box-shadow: none;
     font-weight: bold;
     overflow-x: hidden;
+    -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  max-width: 100%; 
+
   }
 
   .lang-content {
