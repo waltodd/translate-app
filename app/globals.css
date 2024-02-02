@@ -11,7 +11,9 @@
     background-color: #040711;
     overflow-x: hidden !important;
     box-sizing: border-box;
-    -webkit-overflow-scrolling: touch
+    -webkit-overflow-scrolling: touch;
+    touch-action: manipulation; /* Improve touch responsiveness */
+    user-scalable: no;
   }
 
   .hero-section {
@@ -110,6 +112,9 @@
     font-size: 14px;
     padding: .5rem;
     background-color: transparent
+  }
+  .textare-input:focus {
+    position: fixed;
   }
 
   .card-content p {
